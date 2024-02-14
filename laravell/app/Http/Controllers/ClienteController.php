@@ -108,6 +108,14 @@ class ClienteController extends Controller
         {
             $cliente = Clientes::where('cpfcnpj', $cpfcnpj)->first();
             $entregas = Entregas::with('rastreamentos')->with('transportadoras')->where('id_destinatario', $cliente->id)->get();
+            if(count($entregas) == 0)
+            {
+                return response()->json([
+                    "message" => "Entregas para o CPF/CNPJ ".$cpfcnpj." não encontradas.",
+                    "code" => 404,
+                    "description" => $this->bydoc_description
+                ]);
+            }
             return response()->json([
                 "message" => "Entregas para o CPF/CNPJ ".$cpfcnpj." encontradas.",
                 "code" => 200,
@@ -172,7 +180,7 @@ class ClienteController extends Controller
                 {
                     return response()->json([
                         "message" => "Cliente não possui entregas",
-                        "code" => 401,
+                        "code" => 402,
                         "description" => "Cliente não possui entregas"
                     ], 401);
                 }
@@ -288,15 +296,27 @@ class ClienteController extends Controller
                         }
                     }
                 }
-                return response()->json([
-                    "message" => "Entregas para o CPF/CNPJ ".$cpfcnpj." encontradas.",
-                    "code" => 200,
-                    "description" => $this->bydoc_description,
-                    "data" => [
-                        "cliente" => $cliente,
-                        "entregas" => $entregas
-                    ]
-                ], 200);
+                
+                if(count($entregas) > 0)
+                {
+                    return response()->json([
+                        "message" => "Entregas para o CPF/CNPJ ".$cpfcnpj." encontradas.",
+                        "code" => 200,
+                        "description" => $this->bydoc_description,
+                        "data" => [
+                            "cliente" => $cliente,
+                            "entregas" => $entregas
+                        ]
+                    ], 200);
+                }
+                else
+                {
+                    return response()->json([
+                        "message" => "Entregas para o CPF/CNPJ ".$cpfcnpj." não encontradas.",
+                        "code" => 404,
+                        "description" => $this->bydoc_description
+                    ]);
+                }
             }
             else
             {

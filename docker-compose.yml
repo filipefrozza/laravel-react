@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  laravel:
+    build: ./laravel
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./laravel:/var/www/html
+
+  react:
+    build: ./react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./react:/app
