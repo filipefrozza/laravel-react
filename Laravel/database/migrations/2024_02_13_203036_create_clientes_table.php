@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransportadorasTable extends Migration
+class CreateClientesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateTransportadorasTable extends Migration
      */
     public function up()
     {
-        Schema::create('transportadoras', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('api_id');
-            $table->string('cnpj');
-            $table->string('fantasia');
+            $table->string('cpfcnpj');
+            $table->string('nome');
+            $table->string('endereco');
+            $table->string('estado');
+            $table->string('cep');
+            $table->string('pais');
+            $table->string('geolocalizao');
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ class CreateTransportadorasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transportadoras');
+        Schema::dropIfExists('clientes');
     }
 }

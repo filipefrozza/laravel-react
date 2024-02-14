@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transportadoras extends Model
+class Rastreamentos extends Model
 {
     use HasFactory;
-    protected $table = 'transportadoras';
-    protected $fillable = ['api_id', 'cnpj', 'fantasia'];
+    protected $table = 'rastreamentos';
+    protected $fillable = ['id_entrega', 'message', 'date'];
 }

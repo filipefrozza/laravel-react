@@ -15,10 +15,11 @@ class CreateEntregasTable extends Migration
     {
         Schema::create('entregas', function (Blueprint $table) {
             $table->id();
-            //['id_transportadora', 'volumes', 'id_remetente', 'id_destinatario']
+            //['id_transportadora', 'volumes', 'remetente', 'id_destinatario']
+            $table->string('api_id');
             $table->integer('id_transportadora');
             $table->integer('volumes');
-            $table->integer('id_remetente');
+            $table->string('remetente');
             $table->integer('id_destinatario');
             $table->timestamps();
         });

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Entregas;
-//['id_transportadora', 'volumes', 'id_remetente', 'id_destinatario'];
+//['id_transportadora', 'volumes', 'remetente', 'id_destinatario'];
 
 class EntregaController extends Controller
 {
     public function index()
     {
-        $entregas = Transportadoras::all();
+        $entregas = Entregas::all();
         return response()->json($entregas);
     }
     
@@ -19,7 +19,7 @@ class EntregaController extends Controller
         $entrega = new Entregas;
         $entrega->id_transportadora = $request->id_transportadora;
         $entrega->volumes = $request->volumes;
-        $entrega->id_remetente = $request->id_remetente;
+        $entrega->remetente = $request->remetente;
         $entrega->id_destinatario = $request->id_destinatario;
         $entrega->save();
         return response()->json([
@@ -49,7 +49,7 @@ class EntregaController extends Controller
             $entrega = Entregas::find($id);
             $entrega->id_transportadora = is_null($request->id_transportadora) ? $entrega->id_transportadora : $request->id_transportadora;
             $entrega->volumes = is_null($request->volumes) ? $entrega->volumes : $request->volumes;
-            $entrega->id_remetente = is_null($request->id_remetente) ? $entrega->id_remetente : $request->id_remetente;
+            $entrega->remetente = is_null($request->remetente) ? $entrega->remetente : $request->remetente;
             $entrega->id_destinatario = is_null($request->id_destinatario) ? $entrega->id_destinatario : $request->id_destinatario;
             $entrega->save();
             return response()->json([
