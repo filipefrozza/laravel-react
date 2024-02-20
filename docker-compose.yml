@@ -1,16 +1,34 @@
 version: '3'
 
 services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: brudam-test
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      
   laravel:
-    build: ./laravel
+    build: .\\laravel
+    env_file:
+      - .\\laravel\\.env
     ports:
       - "8000:8000"
     volumes:
-      - ./laravel:/var/www/html
+      - .\\laravel:/var/www/html
+    depends_on:
+      - mysql
+    #entrypoint: /var/www/html/docker-entrypoint.sh
 
   react:
-    build: ./react
+    build: .\\react
     ports:
       - "3000:3000"
     volumes:
-      - ./react:/app
+      - .\\react:/app
+
+volumes:
+  mysql_data:
